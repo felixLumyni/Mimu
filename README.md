@@ -1,0 +1,1 @@
+[Character template by maya-bee](https://github.com/maya-bee/isaac-character-template)
