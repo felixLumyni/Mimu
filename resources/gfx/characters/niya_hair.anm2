@@ -1,8 +1,8 @@
 <AnimatedActor>
-	<Info CreatedBy="robot" CreatedOn="10/12/2023 9:36:02 PM" Version="115" Fps="30"/>
+	<Info CreatedBy="robot" CreatedOn="10/03/2024 13:10:04" Version="116" Fps="30"/>
 	<Content>
 		<Spritesheets>
-			<Spritesheet Path="costumes\gabriel hair.png" Id="0"/>
+			<Spritesheet Path="costumes\niya_hair.png" Id="0"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="head0" Id="0" SpritesheetId="0"/>
