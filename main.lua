@@ -1,16 +1,30 @@
 local MimuMod = RegisterMod("Mimu Character Mod", 1)
-local hairCostume = Isaac.GetCostumeIdByPath("gfx/characters/mimu_hair.anm2")
-local hairCostume2 = Isaac.GetCostumeIdByPath("gfx/characters/felix_hair.anm2")
-local hairCostume3 = Isaac.GetCostumeIdByPath("gfx/characters/niya_hair.anm2")
+local MimuChar = Isaac.GetPlayerTypeByName("Mimu", false)
  
-function MimuMod:GiveCostumesOnInit(player)
-    if player:GetPlayerType() ~= Isaac.GetPlayerTypeByName("Mimu", false) then
+function MimuMod:PostPlayerInit(player)
+    if player:GetPlayerType() ~= MimuChar then
         return
     end
 
-    player:AddNullCostume(hairCostume)
+    player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/mimu_hair.anm2"))
+    player:AddEternalHearts(1)
 end
-MimuMod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, MimuMod.GiveCostumesOnInit)
+MimuMod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, MimuMod.PostPlayerInit)
+
+function MimuMod:HandleStartingStats(player, flag)
+    if player:GetPlayerType() ~= MimuChar then
+        return
+    end
+
+    if flag == CacheFlag.CACHE_DAMAGE then
+        player.Damage = player.Damage * 2
+    end
+    if flag == CacheFlag.CACHE_FIREDELAY then
+        player.FireDelay = player.FireDelay / 1.75
+        player.ShotSpeed = player.ShotSpeed / 3
+    end
+end
+MimuMod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, MimuMod.HandleStartingStats)
 
 function MimuMod:ExtraCostumesOnInit(player)
     if WardrobePlus ~= nil then

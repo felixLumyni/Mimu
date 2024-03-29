@@ -2,7 +2,7 @@
     <player name="Mimu"
         skin="character_mimu.png"
         nameimage="playername_mimu.png"
-        hp="6"
+        hp="4"
         bombs="1"
         trinket="137"
         portrait="playerportrait_mimu.png"
