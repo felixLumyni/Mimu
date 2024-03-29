@@ -1,12 +1,12 @@
 <players root="gfx/characters/costumes/" portraitroot="gfx/ui/stage/" nameimageroot="gfx/ui/boss/">
-    <player name="Gabriel"
-        skin="character_gabriel.png"
-        nameimage="playername_gabriel.png"
-        hp="4"
-        armor="2"
-        keys="1"
-        portrait="playerportrait_gabriel.png"
+    <player name="Mimu"
+        skin="character_mimu.png"
+        nameimage="playername_mimu.png"
+        hp="6"
+        bombs="1"
+        trinket="137"
+        portrait="playerportrait_mimu.png"
         skinColor="-1"
-        items="178"
+        items="147"
     />
 </players>
