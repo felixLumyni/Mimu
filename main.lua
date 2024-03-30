@@ -1,13 +1,17 @@
 local MimuMod = RegisterMod("Mimu Character Mod", 1)
 local MimuChar = Isaac.GetPlayerTypeByName("Mimu", false)
- 
+
+TrinketType.TRINKET_SAPLINGSTRIKE = Isaac.GetTrinketIdByName("Sapling Strike")
+
 function MimuMod:PostPlayerInit(player)
+    player:GetData().mimuCooldown = 0
     if player:GetPlayerType() ~= MimuChar then
         return
     end
 
     player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/mimu_hair_character.anm2"))
     player:AddEternalHearts(1)
+    player:AddTrinket(TrinketType.TRINKET_SAPLINGSTRIKE)
 end
 MimuMod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, MimuMod.PostPlayerInit)
 
@@ -38,3 +42,34 @@ function MimuMod:ExtraCostumesOnInit(player)
     end
 end
 MimuMod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, MimuMod.ExtraCostumesOnInit)
+
+function MimuMod:onDamage(entity, damageAmount, damageFlags, damageSource, damageCountdown)
+    local enemyOnFullHP = entity:IsActiveEnemy() and entity.HitPoints == entity.MaxHitPoints
+    if enemyOnFullHP then
+        local player = damageSource and damageSource.Entity and damageSource.Entity:ToPlayer()
+        local playerHasTrinket = player and player:HasTrinket(Isaac.GetTrinketIdByName("Sapling Strike"))
+        if playerHasTrinket and not (player:GetData().mimuCooldown and player:GetData().mimuCooldown > 0) then
+            damageAmount = damageAmount * 2
+            player:GetData().mimuCooldown = 1
+            entity:TakeDamage(damageAmount, damageFlags, damageSource, damageCountdown)
+            for i = 1, 100 do
+                Game():SpawnParticles(entity.Position, EffectVariant.BLOOD_PARTICLE, 1, 1)
+            end
+            SFXManager():Play(SoundEffect.SOUND_ROCKET_BLAST_DEATH, 1, 0, false, 1, 0)
+            return false
+        end
+    end
+end
+MimuMod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, MimuMod.onDamage)
+
+function MimuMod:onNewRoom()
+    for i = 1, Game():GetNumPlayers() do
+        local player = Game():GetPlayer(i - 1)
+        if player:GetData().mimuCooldown then
+            player:GetData().mimuCooldown = player:GetData().mimuCooldown - 1
+        else
+            player:GetData().mimuCooldown = 0
+        end
+    end
+end
+MimuMod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, MimuMod.onNewRoom)

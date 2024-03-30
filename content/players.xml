@@ -4,7 +4,6 @@
         nameimage="playername_mimu.png"
         hp="4"
         bombs="1"
-        trinket="137"
         portrait="playerportrait_mimu.png"
         skinColor="-1"
         items="147"
