@@ -1,7 +1,7 @@
 local MimuMod = RegisterMod("Mimu Character Mod", 1)
 local MimuChar = Isaac.GetPlayerTypeByName("Mimu", false)
 
-TrinketType.TRINKET_SAPLINGSTRIKE = Isaac.GetTrinketIdByName("Sapling Strike")
+TrinketType.TRINKET_AXSHAPEDLEAF = Isaac.GetTrinketIdByName("Ax-Shaped Leaf")
 
 function MimuMod:PostPlayerInit(player)
     player:GetData().mimuCooldown = 0
@@ -11,7 +11,7 @@ function MimuMod:PostPlayerInit(player)
 
     player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/mimu_hair_character.anm2"))
     player:AddEternalHearts(1)
-    player:AddTrinket(TrinketType.TRINKET_SAPLINGSTRIKE)
+    player:AddTrinket(TrinketType.TRINKET_AXSHAPEDLEAF)
 end
 MimuMod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, MimuMod.PostPlayerInit)
 
@@ -24,7 +24,7 @@ function MimuMod:HandleStartingStats(player, flag)
         player.Damage = player.Damage * 2
     end
     if flag == CacheFlag.CACHE_FIREDELAY then
-        player.MaxFireDelay = player.MaxFireDelay * 1.75
+        player.MaxFireDelay = player.MaxFireDelay * 3
     end
     if flag == CacheFlag.CACHE_SHOTSPEED then
         player.ShotSpeed = player.ShotSpeed / 3
@@ -47,7 +47,7 @@ function MimuMod:onDamage(entity, damageAmount, damageFlags, damageSource, damag
     local enemyOnFullHP = entity:IsActiveEnemy() and entity.HitPoints == entity.MaxHitPoints
     if enemyOnFullHP then
         local player = damageSource and damageSource.Entity and damageSource.Entity:ToPlayer()
-        local playerHasTrinket = player and player:HasTrinket(Isaac.GetTrinketIdByName("Sapling Strike"))
+        local playerHasTrinket = player and player:HasTrinket(Isaac.GetTrinketIdByName("Ax-Shaped Leaf"))
         if playerHasTrinket and not (player:GetData().mimuCooldown and player:GetData().mimuCooldown > 0) then
             damageAmount = damageAmount * 2
             player:GetData().mimuCooldown = 1
