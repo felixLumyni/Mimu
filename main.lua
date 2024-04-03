@@ -1,18 +1,18 @@
 local MimuMod = RegisterMod("Mimu Character Mod", 1)
 local MimuChar = Isaac.GetPlayerTypeByName("Mimu", false)
+local HOMUOS_WATER_ID = Isaac.GetItemByName("Homuo's Water")
+local ETERNAL_HEART_ID = HeartSubType.HEART_ETERNAL
 
 TrinketType.TRINKET_AXSHAPEDLEAF = Isaac.GetTrinketIdByName("Ax-Shaped Leaf")
+CollectibleType.COLLECTIBLE_HOMUOSWATER = Isaac.GetItemIdByName("Homuo's Water")
 
--- local HOMUOS_WATER_ID = Isaac.GetItemByName("Homuos Water")
--- local ETERNAL_HEART_ID = HeartSubType.HEART_ETERNAL
-
--- function mod:onNewFloor()
---      local player = Isaac.GetPlayer(0)
---          if player:HasCollectible(HOMUOS_WATER_ID) then
---          player:AddEternalHeart(1, false)
---      end
--- end
--- mod:AddCallbacks.MC_POST_NEW_LEVEL, mod.onNewFloor) 
+function mod:onNewFloor()
+    local player = Isaac.GetPlayer(0)
+        if player:HasCollectible(HOMUOS_WATER_ID) then
+        player:AddEternalHeart(1, false)
+    end
+end
+mod:AddCallbacks.MC_POST_NEW_LEVEL, mod.onNewFloor) 
 
 
 function MimuMod:PostPlayerInit(player)
@@ -24,6 +24,7 @@ function MimuMod:PostPlayerInit(player)
     player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/mimu_hair_character.anm2"))
     player:AddEternalHearts(1)
     player:AddTrinket(TrinketType.TRINKET_AXSHAPEDLEAF)
+    player:AddCollectible(CollectibleType.COLLECTIBLE_HOMUOSWATER, 0, true, ActiveSlot.SLOT_PRIMARY, 0)
 end
 MimuMod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, MimuMod.PostPlayerInit)
 
