@@ -1,6 +1,17 @@
 local MimuMod = RegisterMod("Mimu Character Mod", 1)
 local MimuChar = Isaac.GetPlayerTypeByName("Mimu", false)
 
+-- local HOMUOS_WATER_ID = Isaac.GetItemByName("Homuos Water")
+-- local ETERNAL_HEART_ID = HeartSubType.HEART_ETERNAL
+
+-- function mod:onNewFloor()
+--      local player = Isaac.GetPlayer(0)
+--          if player:HasCollectible(HOMUOS_WATER_ID) then
+--          player:AddEternalHeart(1, false)
+--      end
+-- end
+-- mod:AddCallbacks.MC_POST_NEW_LEVEL, mod.onNewFloor) 
+
 TrinketType.TRINKET_SAPLINGSTRIKE = Isaac.GetTrinketIdByName("Sapling Strike")
 
 function MimuMod:PostPlayerInit(player)

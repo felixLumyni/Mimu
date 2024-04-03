@@ -1,3 +1,4 @@
 <items gfxroot="gfx/items/" version="1">
     <trinket description="Amplified first attack" gfx="trinket_saplingstrike.png" name="Sapling Strike" />
-</items>
+    <passive cache="0" collectible="1" quality="1" description="Eternal vitality" gtx="Homuoswater" id="MimuMod.homuoswater" name="Homuos Water"/>
+</item>
