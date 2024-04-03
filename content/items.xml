@@ -1,3 +1,5 @@
 <items gfxroot="gfx/items/" version="1">
     <trinket quality="1" description="Dramatic entrance!" gfx="trinket_ax_shaped_leaf.png" name="Ax-Shaped Leaf" />
+    <passive cache="0" collectible="1" quality="1" description="Eternal vitality" gtx="Homuoswater" id="MimuMod.homuoswater" name="Homuos Water"/>
+
 </items>

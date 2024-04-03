@@ -3,6 +3,18 @@ local MimuChar = Isaac.GetPlayerTypeByName("Mimu", false)
 
 TrinketType.TRINKET_AXSHAPEDLEAF = Isaac.GetTrinketIdByName("Ax-Shaped Leaf")
 
+-- local HOMUOS_WATER_ID = Isaac.GetItemByName("Homuos Water")
+-- local ETERNAL_HEART_ID = HeartSubType.HEART_ETERNAL
+
+-- function mod:onNewFloor()
+--      local player = Isaac.GetPlayer(0)
+--          if player:HasCollectible(HOMUOS_WATER_ID) then
+--          player:AddEternalHeart(1, false)
+--      end
+-- end
+-- mod:AddCallbacks.MC_POST_NEW_LEVEL, mod.onNewFloor) 
+
+
 function MimuMod:PostPlayerInit(player)
     player:GetData().mimuCooldown = 0
     if player:GetPlayerType() ~= MimuChar then
