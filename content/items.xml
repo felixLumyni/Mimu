@@ -1,9 +1,6 @@
-<!-- Trinkets-->
-<items gfxroot="gfx/items/" version="1">
-    <trinket quality="1" description="Dramatic entrance!" gfx="trinket_ax_shaped_leaf.png" name="Ax-Shaped Leaf" />
-</items>
-
-<!-- Passives-->
 <items gfxroot="gfx/items/" deathhanm2="death_items.anm2" version="1">
+    <!-- Trinkets-->
+    <trinket description="Dramatic entrance!" gfx="trinket_ax_shaped_leaf.png" name="Ax-Shaped Leaf" />
+    <!-- Passives-->
     <passive id="1" collectible="1" quality="2" description="Eternal vitality" gfx="collectible_homuos_water.png" name="Homuo's Water"/>
 </items>
