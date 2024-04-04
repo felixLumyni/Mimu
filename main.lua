@@ -1,6 +1,5 @@
 local MimuMod = RegisterMod("Mimu Character Mod", 1)
 local MimuChar = Isaac.GetPlayerTypeByName("Mimu", false)
-local HomuosWater = Isaac.GetItemIdByName("Homuo's Water")
 
 --Add trinkets and items into pools
 TrinketType.TRINKET_AXSHAPEDLEAF = Isaac.GetTrinketIdByName("Ax-Shaped Leaf")
@@ -34,18 +33,24 @@ function MimuMod:PostPlayerInit(player)
     end
 
     player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/mimu_hair_character.anm2"))
-    player:AddEternalHearts(1)
     player:AddTrinket(TrinketType.TRINKET_AXSHAPEDLEAF)
     player:AddCollectible(CollectibleType.COLLECTIBLE_HOMUOSWATER, 0, false)
 end
 MimuMod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, MimuMod.PostPlayerInit)
 
 --Homuo's Water
+local HomuosWater = Isaac.GetItemIdByName("Homuo's Water")
+local HomuosDmg = 0.5
+
 function MimuMod:onNewFloor()
     local player = Isaac.GetPlayer(0)
         if player:HasCollectible(HomuosWater) then
-        player:AddEternalHearts(1, false)
-        player.Damage = player.Damage + 0.5
+            local ItemCount = player:GetCollectibleNum(HomuosWater)
+            local DmgToAdd = HomuosDmg * ItemCount
+            player.Damage = player.Damage + DmgToAdd
+            for i = 1, ItemCount do
+                player:AddEternalHearts(1, false)
+            end            
     end
 end
 MimuMod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, MimuMod.onNewFloor)
@@ -82,7 +87,6 @@ function MimuMod:onDamage(entity, damageAmount, damageFlags, damageSource, damag
 end
 MimuMod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, MimuMod.onDamage)
 
---q porra essa kk
 function MimuMod:onNewRoom()
     for i = 1, Game():GetNumPlayers() do
         local player = Game():GetPlayer(i - 1)
