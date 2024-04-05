@@ -22,7 +22,11 @@ function MimuMod:HandleStartingStats(player, flag)
     if flag == CacheFlag.CACHE_SHOTSPEED then
         player.ShotSpeed = player.ShotSpeed / 3
     end
+    if flag == CacheFlag.CacheFlag.CACHE_RANGE then
+        player.Range = player.Range / 10
+    end
 end
+
 MimuMod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, MimuMod.HandleStartingStats)
 
 --Mimu start game
@@ -40,20 +44,27 @@ MimuMod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, MimuMod.PostPlayerInit)
 
 --Homuo's Water
 local HomuosWater = Isaac.GetItemIdByName("Homuo's Water")
-local HomuosDmg = 0.5
+local HomuosDmgUp = 0.5
 
 function MimuMod:onNewFloor()
     local player = Isaac.GetPlayer(0)
         if player:HasCollectible(HomuosWater) then
             local ItemCount = player:GetCollectibleNum(HomuosWater)
-            local DmgToAdd = HomuosDmg * ItemCount
-            player.Damage = player.Damage + DmgToAdd
             for i = 1, ItemCount do
                 player:AddEternalHearts(1, false)
-            end            
+            end
     end
 end
 MimuMod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, MimuMod.onNewFloor)
+
+function MimuMod:EvaluateDamage(player)
+    if player:HasCollectible(HomuosWater) then
+        local ItemCount = player:GetCollectibleNum(HomuosWater)
+        local DmgToAdd = HomuosDmgUp * ItemCount
+        player.Damage = player.Damage + DmgToAdd
+    end
+end 
+MimuMod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, MimuMod.onNewFloor,ModCallbacks.MC_EVALUATE_CACHE, MimuMod.EvaluateDamage, CacheFlag.CACHE_DAMAGE)
 
 --custumes 
 function MimuMod:ExtraCostumesOnInit(player)

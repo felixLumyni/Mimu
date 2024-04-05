@@ -2,5 +2,5 @@
     <!-- Trinkets-->
     <trinket description="Dramatic entrance!" gfx="trinket_ax_shaped_leaf.png" name="Ax-Shaped Leaf" />
     <!-- Passives-->
-    <passive id="1" collectible="1" quality="2" description="Eternal vitality" gfx="collectible_homuos_water.png" name="Homuo's Water"/>
+    <passive id="1" collectible="1" quality="2" description="Eternal vitality" gfx="collectible_homuos_water.png" name="Homuo's Water" cache="damage"/>
 </items>
